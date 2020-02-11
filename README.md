@@ -50,4 +50,4 @@ Solution for `ss client + tcptun client` can be ShadowsocksX-NG or using a docke
 
 2. Why not SSH tunnel?
 
-   Mostly it is about the stability and performance. SSH Tunnel requires the connection to be maintained, which makes it almost unusable when using cellular network over a mobile phone and traveling in a vehicle. Another thing is about the performance, while I think it is just minor issue for normal usage. To be honest I cannot feel the difference comparing purely ShadowSocks solution with the SSH tunnel one.   
+   Mostly it is about the stability and performance. SSH Tunnel requires the connection to be maintained, which makes it almost unusable when using cellular network over a mobile phone and traveling in a vehicle. Another thing is about the performance, while I think it is just a minor issue for normal usage. To be honest I feel no difference when using SSH tunnel solution compared to the **plain ShadowSocks (no kcptun)** one.   
