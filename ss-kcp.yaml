@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ss
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ss-udp-svc
+  namespace: ss
+  labels:
+    app: ss-udp-svc
+spec:
+  # LoadBanlancer is backed by Node ports
+  # which improves the efficiency
+  type: LoadBalancer 
+  sessionAffinity: ClientIP
+  # We are sure there is one running 
+  # pod since we're using DaemonSet
+  externalTrafficPolicy: Local 
+  ports:
+  - name: udp
+    protocol: UDP
+    port: 8848
+    targetPort: 29900
+  selector:
+    app: ss-app
+---
+# Architecure:
+# user <-> ss client <-> tcptun client <-> tcptun server <-> ss server <-> target website,
+# solution for "ss client + tcptun client" can be ShadowsocksX-NG or using a docker-compose
+# to orchestrate.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ss-ds
+  namespace: ss
+spec:
+  selector:
+    matchLabels:
+      app: ss-app
+  template:
+    metadata:
+      labels:
+        app: ss-app
+    spec:
+      containers:
+      - name: ss-ctr
+        image: shadowsocks/shadowsocks-libev:v3.3.4     
+        command: 
+        - ss-server
+        - -c
+        - /ssconfig/shadowsocks.json
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8388
+          name: ss-tcp
+          protocol: TCP
+        - containerPort: 8388
+          name: ss-udp
+          protocol: UDP
+        volumeMounts:
+        - name: ss-config-volume
+          mountPath: /ssconfig
+          readOnly: true    
+      - name: kcptun-ctr
+        image: xtaci/kcptun:v20200201
+        command:
+        - /bin/server
+        - -c
+        - /kcpconfig/kcptun.json  
+        ports:
+        - containerPort: 29900
+          name: kcptun-udp
+          protocol: UDP
+        volumeMounts:
+          - name: kcptun-config-volume
+            mountPath: /kcpconfig
+            readOnly: true
+      volumes:
+      - name: ss-config-volume
+        secret:
+          secretName: ss-config        
+      - name: kcptun-config-volume
+        secret:
+          secretName: kcptun-config    
+      
+

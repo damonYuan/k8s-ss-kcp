@@ -1,0 +1,9 @@
+{
+    "server":"127.0.0.1", 
+    "server_port":8388, 
+    "password":"xxx",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false,
+    "workers": 1
+}
