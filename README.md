@@ -21,7 +21,7 @@ The configuration for ShadowSocks and kcptun is placed inside the `config` folde
 
 `user <-> ss client <-> tcptun client <-> tcptun server <-> ss server <-> target website`
 
-Solution for "ss client + tcptun client" can be ShadowsocksX-NG or using a docker-compose to orchestrate.
+Solution for `ss client + tcptun client` can be ShadowsocksX-NG or using a docker-compose to orchestrate.
 
 ## Runbook
 
@@ -41,3 +41,13 @@ Solution for "ss client + tcptun client" can be ShadowsocksX-NG or using a docke
 3. Configure your client side to connect with the endpoints.
 
    Note that if ShadowsocksX-NG is used, in the Address field of the Server Preference, the tcptun's UDP port and the address should be filled. For more details please refer to [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG).
+
+## Q&A
+
+1. Why not using VPN?
+
+   VPN's traffic characteristics is quite significant and easy to be detected. In some area it is not viable because the IP would be blocked if the traffic has been identified as VPN. 
+
+2. Why not SSH tunnel?
+
+   Mostly it is about the stability and performance. SSH Tunnel requires the connection to be maintained, which makes it almost unusable when using cellular network over a mobile phone and traveling in a vehicle. Another thing is about the performance, while I think it is just minor issue for normal usage. To be honest I cannot feel the difference comparing purely ShadowSocks solution with the SSH tunnel one.   
