@@ -63,6 +63,6 @@ Solution for `ss client + tcptun client` can be ShadowsocksX-NG or using a docke
 3. Why the tcptun disconnect abruptly?
 
    Mostly it's the ISP has blocked/interrupted the huge UDP traffic. 
-   P.S., possible solution are,
-     - add `-t` in kcptun ([under developement and buggy](https://github.com/xtaci/kcptun/issues/696#issuecomment-586311846))
-     - use [udp2raw](https://github.com/wangyu-/udp2raw-tunnel) ([tried but still failed](https://github.com/wangyu-/udp2raw-tunnel/issues/144#issuecomment-586420753))
+   P.S., possible solutions are,
+     1. add `-t` in kcptun ([under developement and buggy](https://github.com/xtaci/kcptun/issues/696#issuecomment-586311846))
+     2. use [udp2raw](https://github.com/wangyu-/udp2raw-tunnel) ([tried but still failed](https://github.com/wangyu-/udp2raw-tunnel/issues/144#issuecomment-586420753))
