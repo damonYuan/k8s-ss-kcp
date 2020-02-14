@@ -2,3 +2,4 @@
 .vscode
 shadowsocks.json
 kcptun.json
+.env
