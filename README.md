@@ -1,6 +1,12 @@
 k8s-ss-kcp
 ====
 
+![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+
+[![GitHub stars](https://img.shields.io/github/stars/damonYuan/DySocksManager.svg?style=social&label=Stars)](https://github.com/damonYuan/DySocksManager/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/damonYuan/DySocksManager.svg?style=social&label=Watch)](https://github.com/damonYuan/DySocksManager/watchers)
+[![GitHub issues](https://img.shields.io/github/issues/damonYuan/DySocksManager.svg)](https://github.com/damonYuan/DySocksManager/issues)
+
 A Kubernetes solution for [ShadowSocks](https://github.com/shadowsocks/shadowsocks-libev) + [kcptun](https://github.com/xtaci/kcptun).
 
 ## Introduction
