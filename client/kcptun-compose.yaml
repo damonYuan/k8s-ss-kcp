@@ -1,0 +1,73 @@
+version: "3"
+
+services:
+  polipo:
+    image: vimagick/polipo:latest
+    depends_on:
+    - ssc
+    command:
+    - socksParentProxy=ssc:1080
+    ports:
+    - "${POLIPO_PORT}:8123"
+    restart: always  
+
+  ssc:
+    image: shadowsocks/shadowsocks-libev:v3.3.4
+    restart: always
+    depends_on:
+    - kcpc
+    ports: 
+    - "${SS_LOCAL_PORT}:1080"
+    command:
+    - ss-local
+    - -s
+    - kcpc
+    - -p
+    - "12948"
+    - -b
+    - "0.0.0.0"
+    - -l
+    - "1080"
+    - -m
+    - aes-256-cfb
+    - -k
+    - "${SS_PASSWORD}"
+    - --fast-open
+    - --no-delay
+
+  kcpc:
+    image: xtaci/kcptun:v20200201
+    restart: always
+    command:
+    - /bin/client
+    - -r
+    - "${KCPTUN_SERVER}:${KCPTUN_PORT}"
+    - -l
+    - "0.0.0.0:12948"
+    - --mode
+    - fast2
+    - --mtu
+    - "1200"
+    - --key
+    - "${KCPTUN_KEY}"
+    - --crypt
+    - "${KCPTUN_CRYPT}"
+    - --sndwnd
+    - "2048"
+    - --rcvwnd
+    - "2048"
+    - --datashard
+    - "70"
+    - --parityshard
+    - "30"
+    - --dscp
+    - "46"
+    - --nodelay
+    - "0"
+    - --interval
+    - "40"
+    - --sockbuf
+    - "4194304"
+    - --keepalive
+    - "10"
+    - --quiet

@@ -26,6 +26,28 @@ spec:
   selector:
     app: ss-app
 ---
+# optional, only if you don't want to use ss directly
+apiVersion: v1
+kind: Service
+metadata:
+  name: ss-svc
+  namespace: ss
+  labels:
+    app: ss-svc
+spec:
+  type: LoadBalancer
+  sessionAffinity: ClientIP
+  # we are sure there is one running 
+  # pod since we're using DaemonSet
+  externalTrafficPolicy: Local 
+  ports:
+  - name: ss-tcp
+    protocol: TCP
+    port: 8488
+    targetPort: 8388
+  selector:
+    app: ss-app    
+---
 # Architecure:
 # user <-> ss client <-> tcptun client <-> tcptun server <-> ss server <-> target website,
 # solution for "ss client + tcptun client" can be ShadowsocksX-NG or using a docker-compose

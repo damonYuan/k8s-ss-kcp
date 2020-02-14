@@ -42,6 +42,14 @@ Solution for `ss client + tcptun client` can be ShadowsocksX-NG or using a docke
 
    Note that if ShadowsocksX-NG is used, in the Address field of the Server Preference, the tcptun's UDP port and the address should be filled. For more details please refer to [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG).
 
+   You can change the `.env.example` to `.env`, update the attributes, and use the docker file in client folder directly,
+   ```
+   # use ss directly
+   docker-compose -f ss-compose.yam up -d
+   # OR use with kcptun
+   docker-compose -f kcptun-compose.yam up -d
+   ```
+
 ## Q&A
 
 1. Why not using VPN?
@@ -51,3 +59,7 @@ Solution for `ss client + tcptun client` can be ShadowsocksX-NG or using a docke
 2. Why not SSH tunnel?
 
    Mostly it is about the stability and performance. SSH Tunnel requires the connection to be maintained, which makes it almost unusable when using cellular network over a mobile phone and traveling in a vehicle. Another thing is about the performance, while I think it is just minor issue for normal usage. To be honest I cannot feel the difference comparing purely ShadowSocks solution with the SSH tunnel one.   
+
+3. Why the tcptun disconnect abruptly?
+
+   Mostly it's the ISP has block the huge UDP traffic.
