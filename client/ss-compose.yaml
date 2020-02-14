@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  polipo:
+    image: vimagick/polipo:latest
+    depends_on:
+    - ssc
+    command:
+    - socksParentProxy=ssc:1080
+    ports:
+    - "${POLIPO_PORT}:8123"
+    restart: always  
+  
+  ssc:
+    image: shadowsocks/shadowsocks-libev:v3.3.4
+    restart: always
+    ports: 
+    - "${SS_LOCAL_PORT}:1080"
+    command:
+    - ss-local
+    - -s
+    - "${SS_SERVER}"
+    - -p
+    - "${SS_SERVER_PORT}"
+    - -b
+    - "0.0.0.0"
+    - -l
+    - "1080"
+    - -m
+    - aes-256-cfb
+    - -k
+    - "${SS_PASSWORD}"
+    - --fast-open
+    - --no-delay
