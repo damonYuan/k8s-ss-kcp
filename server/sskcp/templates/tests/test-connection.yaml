@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "sskcp.fullname" . }}-test-connection"
+  labels:
+    {{- include "sskcp.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "sskcp.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
